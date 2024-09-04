@@ -122,7 +122,9 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(LinkedHashMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
+        .setContext(new LinkedHashMap<String, Object>() {{
+            put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false);
+        }})
         .build();
 
     QueryToolChest queryToolChest =
