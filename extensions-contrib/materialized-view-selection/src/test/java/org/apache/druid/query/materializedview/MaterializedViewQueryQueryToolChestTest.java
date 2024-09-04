@@ -121,17 +121,18 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(ImmutableSortedMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
-        .build();
+        .setContext(ImmutableSortedMap.<String, Object>naturalOrder()
+        .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
+        .build());
 
     QueryToolChest queryToolChest =
         new MaterializedViewQueryQueryToolChest(new MapQueryToolChestWarehouse(
-            ImmutableSortedMap.<Class<? extends Query>, QueryToolChest>builder()
+            ImmutableMap.<Class<? extends Query>, QueryToolChest>builder()
                 .put(GroupByQuery.class, new GroupByQueryQueryToolChest(null, null))
                 .build()
         ));
 
-    ObjectMapper objectMapper = queryToolChest.decorateObjectMapper(JSON_MAPPER, realQuery)
+    ObjectMapper objectMapper = queryToolChest.decorateObjectMapper(JSON_MAPPER, realQuery);
 
     List<ResultRow> results = Arrays.asList(
         GroupByQueryRunnerTestHelper.createExpectedRow(
@@ -179,8 +180,9 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(ImmutableMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
-        .build();
+        .setContext(ImmutableSortedMap.<String, Object>naturalOrder()
+        .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
+        .build());
     MaterializedViewQuery materializedViewQuery = new MaterializedViewQuery(realQuery, null);
 
     QueryToolChest materializedViewQueryQueryToolChest =
@@ -238,8 +240,9 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(ImmutableMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
-        .build();
+        .setContext(ImmutableSortedMap.<String, Object>naturalOrder()
+        .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
+        .build());
     MaterializedViewQuery materializedViewQuery = new MaterializedViewQuery(realQuery, null);
 
     MaterializedViewQueryQueryToolChest materializedViewQueryQueryToolChest =
