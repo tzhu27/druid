@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSortedMap;
 import org.apache.druid.common.config.NullHandling;
 import org.apache.druid.data.input.MapBasedRow;
 import org.apache.druid.jackson.DefaultObjectMapper;
@@ -55,6 +54,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.LinkedHashMap;
 
 public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHandlingTest
 {
@@ -122,14 +122,12 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(ImmutableSortedMap.<String, Object>naturalOrder()
-            .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
-            .build())
+        .setContext(LinkedHashMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
         .build();
 
     QueryToolChest queryToolChest =
         new MaterializedViewQueryQueryToolChest(new MapQueryToolChestWarehouse(
-            ImmutableMap.<Class<? extends Query>, QueryToolChest>builder()
+            LinkedHashMap.<Class<? extends Query>, QueryToolChest>builder()
                 .put(GroupByQuery.class, new GroupByQueryQueryToolChest(null, null))
                 .build()
         ));
@@ -182,9 +180,7 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(ImmutableSortedMap.<String, Object>naturalOrder()
-            .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
-            .build())
+        .setContext(ImmutableMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
         .build();
     MaterializedViewQuery materializedViewQuery = new MaterializedViewQuery(realQuery, null);
 
@@ -243,9 +239,7 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(ImmutableSortedMap.<String, Object>naturalOrder()
-            .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
-            .build())
+        .setContext(ImmutableMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
         .build();
     MaterializedViewQuery materializedViewQuery = new MaterializedViewQuery(realQuery, null);
 
