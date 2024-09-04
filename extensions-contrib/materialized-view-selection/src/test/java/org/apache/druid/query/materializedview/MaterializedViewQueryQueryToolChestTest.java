@@ -113,6 +113,9 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
   @Test
   public void testDecorateObjectMapper() throws IOException
   {
+    Map<String, Object> contextMap = new LinkedHashMap<>();
+    contextMap.put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false);
+
     GroupByQuery realQuery = GroupByQuery.builder()
         .setDataSource(QueryRunnerTestHelper.DATA_SOURCE)
         .setQuerySegmentSpec(QueryRunnerTestHelper.FIRST_TO_THIRD)
@@ -122,9 +125,7 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(new LinkedHashMap<String, Object>() {
-            { put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false); }
-        })
+        .setContext(contextMap)
         .build();
 
     QueryToolChest queryToolChest =
@@ -173,9 +174,6 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
   @Test
   public void testDecorateObjectMapperMaterializedViewQuery() throws IOException
   {
-    Map<String, Object> contextMap = new LinkedHashMap<>();
-    contextMap.put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false);
-
     GroupByQuery realQuery = GroupByQuery.builder()
         .setDataSource(QueryRunnerTestHelper.DATA_SOURCE)
         .setQuerySegmentSpec(QueryRunnerTestHelper.FIRST_TO_THIRD)
@@ -185,7 +183,7 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(contextMap)
+        .setContext(ImmutableMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
         .build();
     MaterializedViewQuery materializedViewQuery = new MaterializedViewQuery(realQuery, null);
 
