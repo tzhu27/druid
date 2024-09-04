@@ -123,8 +123,9 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
         .setContext(ImmutableSortedMap.<String, Object>naturalOrder()
-        .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
-        .build());
+            .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
+            .build())
+        .build();
 
     QueryToolChest queryToolChest =
         new MaterializedViewQueryQueryToolChest(new MapQueryToolChestWarehouse(
@@ -182,8 +183,9 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
         .setContext(ImmutableSortedMap.<String, Object>naturalOrder()
-        .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
-        .build());
+            .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
+            .build())
+        .build();
     MaterializedViewQuery materializedViewQuery = new MaterializedViewQuery(realQuery, null);
 
     QueryToolChest materializedViewQueryQueryToolChest =
@@ -242,8 +244,9 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
         .setContext(ImmutableSortedMap.<String, Object>naturalOrder()
-        .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
-        .build());
+            .put(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false)
+            .build())
+        .build();
     MaterializedViewQuery materializedViewQuery = new MaterializedViewQuery(realQuery, null);
 
     MaterializedViewQueryQueryToolChest materializedViewQueryQueryToolChest =
