@@ -131,7 +131,7 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
                 .build()
         ));
 
-    ObjectMapper objectMapper = queryToolChest.decorateObjectMapper(JSON_MAPPER, realQuery);
+    ObjectMapper objectMapper = queryToolChest.decorateObjectMapper(JSON_MAPPER, realQuery).copy().enable(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS);
 
     List<ResultRow> results = Arrays.asList(
         GroupByQueryRunnerTestHelper.createExpectedRow(
