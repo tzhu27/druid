@@ -121,17 +121,17 @@ public class MaterializedViewQueryQueryToolChestTest extends InitializedNullHand
             new LongSumAggregatorFactory("idx", "index")
         )
         .setGranularity(QueryRunnerTestHelper.DAY_GRAN)
-        .setContext(ImmutableMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
+        .setContext(ImmutableSortedMap.of(GroupByQueryConfig.CTX_KEY_ARRAY_RESULT_ROWS, false))
         .build();
 
     QueryToolChest queryToolChest =
         new MaterializedViewQueryQueryToolChest(new MapQueryToolChestWarehouse(
-            ImmutableMap.<Class<? extends Query>, QueryToolChest>builder()
+            ImmutableSortedMap.<Class<? extends Query>, QueryToolChest>builder()
                 .put(GroupByQuery.class, new GroupByQueryQueryToolChest(null, null))
                 .build()
         ));
 
-    ObjectMapper objectMapper = queryToolChest.decorateObjectMapper(JSON_MAPPER, realQuery).copy().enable(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS);
+    ObjectMapper objectMapper = queryToolChest.decorateObjectMapper(JSON_MAPPER, realQuery)
 
     List<ResultRow> results = Arrays.asList(
         GroupByQueryRunnerTestHelper.createExpectedRow(
