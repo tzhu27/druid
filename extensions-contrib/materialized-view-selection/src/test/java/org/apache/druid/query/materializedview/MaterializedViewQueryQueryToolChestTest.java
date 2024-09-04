@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSortedMap;
 import org.apache.druid.common.config.NullHandling;
 import org.apache.druid.data.input.MapBasedRow;
 import org.apache.druid.jackson.DefaultObjectMapper;
